@@ -25,3 +25,7 @@ Here are some top-level modules that the project will need to contain.
 - [UI](#ui) is responsible for user interaction, showing progress to the user and receiving input.
 - [State](#state) is responsible maintaining, storing and retrieving the game state.
 - [Environment](#environment) (suggested) manages the different environments in the game world.
+
+## Developer Information
+
+To generate documentation, run: `make doc`
