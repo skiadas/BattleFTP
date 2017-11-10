@@ -1,6 +1,6 @@
-# HanoverRPG
+# BattleFTP
 
-HanoverRPG is a text-based RPG game built in Haskell. The player will be able to create characters of various classes and races, and engage in combat with AI-generated opponents.
+BattleFTP (Battle for the Point) is a text-based RPG game built in Haskell. The player will be able to create characters of various classes and races, and engage in combat with AI-generated opponents.
 
 ## Overall description
 
