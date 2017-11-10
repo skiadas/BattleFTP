@@ -28,4 +28,10 @@ Here are some top-level modules that the project will need to contain.
 
 ## Developer Information
 
+### File Structure
+
+You all have a basic file for your module, named after the module. If you need to create submodules, place them in a folder named after your module. For example, if Unit was to have a module called `Unit.Party`, then you would create a folder called Unit and in it create a file called `Party.hs`.
+
+### Documentation
+
 To generate documentation, run: `make doc`
