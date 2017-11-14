@@ -30,10 +30,18 @@ Here are some top-level modules that the project will need to contain.
 
 ### File Structure
 
+All source code is contained within the folder called `src`.
+
 You all have a basic file for your module, named after the module. If you need to create submodules, place them in a folder named after your module. For example, if Unit was to have a module called `Unit.Party`, then you would create a folder called Unit and in it create a file called `Party.hs`.
+
+### Overall Project Compilation
+
+To compile the overall project, run: `make exec` from the root `BattleFTP` directory. This creates interface files within the `src` folder, and an executable `battleftp` in the root `BattleFTP` directory. You can execute that file, and thus run the program, via `./battleftp`.
+
+The main file for the project is [src/BattleFTP.hs](src/BattleFTP.hs). By default it imports the [Game module](src/Game.hs), but you may possibly find a need to import more. It contains a `main` function that currently does nothing. The Game team will need to change this function so that it calls a corresponding function in the Game module.
 
 ### Documentation
 
-To generate documentation, run: `make doc`
+To generate documentation, run: `make doc` from the root `BattleFTP` directory.
 
 Testing
