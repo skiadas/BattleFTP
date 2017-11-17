@@ -1,8 +1,8 @@
 {-|
 Module      : Inventory
 Description : The Inventory module
-Copyright   : (c) Some Guy, 2013
-                  Someone Else, 2014
+Copyright   : (c) Jacob Hedrick, 2017
+                  Chris Roe, 2017
 License     : MIT
 Maintainer  : sample@email.com
 
