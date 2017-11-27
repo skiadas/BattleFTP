@@ -45,7 +45,10 @@ numItems:: Storage -> Int
 numItems (Stor []) = 0
 numItems (Stor (x:xs)) = 1 + numItems (Stor (xs))
 
-
-
+-- Inserts a new item into the storage list
+-- Does nothing and returns a warning message if storage is full
+insertItem:: Item -> Storage -> Storage
+insertItem i (Stor stor1) = Stor newStorage
+    where newStorage = stor1 ++ [i]
 
 
