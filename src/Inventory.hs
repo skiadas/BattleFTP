@@ -30,3 +30,7 @@ type Item = (String, ItemType, int, int, int, int)
 --Has 3 values (Weapon, Shield, Armour) to describe what type an item is
 data ItemType = Weapon|Shield|Armour
 
+--Pre-made items
+sword = ("sword", Weapon, 0, 2, 1, 0) :: Item
+sheild = ("sheild", Sheild, 0, 1, 3, -1) :: Item
+armour = ("armour", Armour, 3, 0, 0, -2) :: Item
