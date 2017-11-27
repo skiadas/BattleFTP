@@ -34,3 +34,8 @@ data ItemType = Weapon|Shield|Armour
 sword = ("sword", Weapon, 0, 2, 1, 0) :: Item
 shield = ("shield", Shield, 0, 1, 3, -1) :: Item
 armour = ("armour", Armour, 3, 0, 0, -2) :: Item
+
+
+-- Create the starting inventory with basic sword, sheild, and armor
+storage:: Storage
+storage = Stor [sword, shield, armour]
