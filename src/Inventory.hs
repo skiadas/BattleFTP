@@ -39,3 +39,13 @@ armour = ("armour", Armour, 3, 0, 0, -2) :: Item
 -- Create the starting inventory with basic sword, sheild, and armor
 storage:: Storage
 storage = Stor [sword, shield, armour]
+
+-- Returns the number of items in the unit storage
+numItems:: Storage -> Int
+numItems (Stor []) = 0
+numItems (Stor (x:xs)) = 1 + numItems (Stor (xs))
+
+
+
+
+
