@@ -22,6 +22,7 @@ module Inventory
     storage, -- constructor for making a starting Storage
     numItems, -- returns the number of items in a storage object
     insertItem, -- inserts a new item into a storage object
+    listStorage, -- list the Items in Storage by their names
     sword, -- basic starting weapon of type Item
     shield, -- basic starting shield of type Item
     armour, -- basic starting armour of type Item
@@ -58,5 +59,10 @@ numItems (Stor (x:xs)) = 1 + numItems (Stor (xs))
 insertItem:: Item -> Storage -> Storage
 insertItem i (Stor stor1) = Stor newStorage
     where newStorage = stor1 ++ [i]
+
+-- Returns a list of the names of the Items in your Storage
+listStorage:: Storage -> [String]
+listStorage (Stor []) = []
+listStorage (Stor ((name, _, _, _, _, _): xs)) = name : listStorage (Stor (xs))
 
 
