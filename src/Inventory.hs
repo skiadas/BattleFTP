@@ -66,6 +66,10 @@ listStorage:: Storage -> [String]
 listStorage (Stor []) = []
 listStorage (Stor ((name, _, _, _, _, _): xs)) = name : listStorage (Stor (xs))
 
+-- Returns the name of a given item
+itemName:: Item -> String
+itemName (name, _, _, _, _, _) = name
+
 -- Seaches for an item in the Storage and removes it if it is found
 removeItem:: Item -> Storage -> Storage
 removeItem _ (Stor []) = (Stor [])
