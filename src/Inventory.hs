@@ -23,6 +23,7 @@ module Inventory
     numItems, -- returns the number of items in a storage object
     insertItem, -- inserts a new item into a storage object
     listStorage, -- list the Items in Storage by their names
+    removeItem, -- removes the first occurance of a given Item in Storage
     sword, -- basic starting weapon of type Item
     shield, -- basic starting shield of type Item
     armour, -- basic starting armour of type Item
@@ -64,5 +65,11 @@ insertItem i (Stor stor1) = Stor newStorage
 listStorage:: Storage -> [String]
 listStorage (Stor []) = []
 listStorage (Stor ((name, _, _, _, _, _): xs)) = name : listStorage (Stor (xs))
+
+-- Seaches for an item in the Storage and removes it if it is found
+removeItem:: Item -> Storage -> Storage
+removeItem _ (Stor []) = (Stor [])
+removeItem i (Stor (x:xs)) | (itemName x) == (itemName i) = (Stor (xs))
+                           | otherwise = insertItem x (removeItem i (Stor (xs)))
 
 
