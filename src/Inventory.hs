@@ -17,12 +17,20 @@ commentary:
 -}
 module Inventory
 (
+    Storage, -- exporting the storage type
+    Item, -- exporting the item type
+    storage, -- constructor for making a starting Storage
+    numItems, -- returns the number of items in a storage object
+    insertItem, -- inserts a new item into a storage object
+    sword, -- basic starting weapon of type Item
+    shield, -- basic starting shield of type Item
+    armour, -- basic starting armour of type Item
 
 ) where
 -- Module starts here.
 -- Definition for the Storage data type
 -- A list of items in the units possession
-data Storage = Stor [Item]
+data Storage = Stor [Item] 
 -- Definition for the Item data type
 -- An Item is a 6-tuple with values: (name, ItemType, HP, Attack, Defense, Speed)
 type Item = (String, ItemType, Int, Int, Int, Int)
