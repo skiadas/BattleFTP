@@ -20,6 +20,8 @@ Attributes
 
 
 -}
+
+import Inventory
 module Unit
 (
  createUnit,
@@ -54,39 +56,40 @@ getName (Unit (pName, _, _, _)) = pName
 
 --given a unit's attributes, returns its HP
 getHealth :: Unit -> Int
-getHealth (Unit (_, (hp, _, _, _) ,_ ,_)) = hp
+getHealth (Unit (_, Attributes(hp, _, _, _) ,_ ,_)) = hp
 
 --given a unit's attributes, returns its Attack
 getAttack :: Unit -> Int
-getAttack (Unit (_, (_, atk, _, _) ,_ ,_)) = atk
+getAttack (Unit (_, Attributes(_, atk, _, _) ,_ ,_)) = atk
 
 --given a unit's attributes, returns its Defense
 getDefense :: Unit -> Int
-getDefense (Unit (_, (_, _, def, _) ,_ ,_)) = def
+getDefense (Unit (_, Attributes(_, _, def, _) ,_ ,_)) = def
 
 --given a unit's attributes, returns its Speed
 getSpeed :: Unit -> Int 
-getSpeed (Unit (_, (_, _, _, spd) ,_ ,_)) = spd
+getSpeed (Unit (_, Attributes(_, _, _, spd) ,_ ,_)) = spd
+
 
 
 createUnit :: Username -> HP -> Attack -> Defense -> Speed -> IsPlayer -> Unit
 createUnit unitName maxHP atk def spd player = (Unit (unitName, (Attributes (maxHP, atk, def, spd)), False, player))
 
 --given a set of attributes, and a new HP stat, returns those attributes with the updated stat
-changeHealth :: Attributes -> Int -> Attributes
-changeHealth (Attributes (oldHP, atk, def, spd)) newHP = (Attributes (newHP, atk, def, spd))
+changeHealth :: Unit -> Int -> Unit
+changeHealth (Unit (name, (Attributes (oldHP, atk, def, spd)), death, player)) newHP = (Unit (name, Attributes (newHP, atk, def, spd), death, player))
 
 --given a set of attributes, and a new Attack, returns those attributes with the updated stat
-changeAttack :: Attributes -> Int -> Attributes
-changeAttack (Attributes (hp, oldAtk, def, spd)) newAtk = (Attributes (hp, newAtk, def, spd))
+changeAttack :: Unit -> Int -> Unit
+changeAttack (Unit ( name, (Attributes (hp, oldAtk, def, spd)), death, player)) newAtk = (Unit ( name, Attributes (hp, newAtk, def, spd), death, player))
 
 --given a set of attributes, and a new Defense, returns those attributes with the updated stat
-changeDefense :: Attributes -> Int -> Attributes
-changeDefense (Attributes (hp, atk, oldDef, spd)) newDef = (Attributes (hp, atk, newDef, spd))
+changeDefense :: Unit -> Int -> Unit
+changeDefense (Unit ( name, (Attributes (hp, atk, oldDef, spd)), death, player)) newDef = (Unit ( name, Attributes (hp, atk, newDef, spd), death, player))
 
 --given a set of attributes, and a new Speed, returns those attributes with the updated stat
-changeSpeed :: Attributes -> Int -> Attributes
-changeSpeed (Attributes (hp, atk, def, oldSpd)) newSpd = (Attributes (hp, atk, def, newSpd))
+changeSpeed :: Unit -> Int -> Unit
+changeSpeed (Unit (name, (Attributes (hp, atk, def, oldSpd)), death, player)) newSpd = (Unit (name, Attributes (hp, atk, def, newSpd), death, player))
 
 
 
