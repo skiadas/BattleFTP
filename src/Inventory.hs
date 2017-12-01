@@ -67,8 +67,29 @@ listStorage (Stor []) = []
 listStorage (Stor ((name, _, _, _, _, _): xs)) = name : listStorage (Stor (xs))
 
 -- Returns the name of a given item
-itemName:: Item -> String
-itemName (name, _, _, _, _, _) = name
+getName:: Item -> String
+getName (name, _, _, _, _, _) = name
+
+-- Returns the type of a given item
+getType:: Item -> ItemType
+getType (_, iType, _, _, _, _) = iType
+
+-- Returns the type of a given item
+getHPEff:: Item -> Int
+getHPEff (_, _, hp, _, _, _) = hp
+
+-- Returns the type of a given item
+getAttackEff:: Item -> Int
+getAttackEff (_, _, _, attack, _, _) = attack
+
+-- Returns the type of a given item
+getDefEff:: Item -> Int
+getDefEff (_, _, _, _, defense, _) = defense
+
+-- Returns the type of a given item
+getSpeedEff:: Item -> Int
+getSpeedEff (_, _, _, _, _, speed) = speed
+
 
 -- Seaches for an item in the Storage and removes it if it is found
 removeItem:: Item -> Storage -> Storage
