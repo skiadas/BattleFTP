@@ -107,4 +107,4 @@ removeItem i (Stor (x:xs)) | (getName x) == (getName i) = (Stor (xs))
 
 -- Returns the attribute of a given Item
 getItem::Item -> Item
-getAttributes i = i
+getItem i = i
