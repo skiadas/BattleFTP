@@ -83,7 +83,7 @@ executeCommand (_, _) = printWarning
 
 --caluculate bar width max 50 --int or string?
 calculateStat :: Int -> String
-calculateStat stat = replicate (stat `div` 2) '█'
+calculateStat stat = replicate (stat `div` 10) '█'
 
 --test data
 health::Int 
@@ -92,6 +92,8 @@ dex::Int
 dex = 50
 stamina::Int 
 stamina = 50
+combat::Bool
+combat = True
 
 --Method to draw all information to the screen...
 --Where all the UI magics will be made 😁
@@ -101,24 +103,26 @@ drawScreen = do
     drawStat ("Health", health, 0,0)
     drawStat ("Dexterity", dex, 1,0)
     drawStat ("stamina", stamina, 2,0)
-    drawString ("Progress: 75" ++ calculateStat 50, 3,0)
-    drawString ("Part 1: ", 4,5)
-    drawString ("Part 2: ", 5,5)
-    drawString ("Part 3: ", 6,5)
-
-    drawString ("Commands List: ", 8,0)
-
-    drawString ("Past Event: ", 15,0)
+    if combat then drawStat ("Enemy Health", health, 0,40) else return ()
+    if combat then drawStat ("Enemy Dexterity", dex, 1,40) else return ()
+    if combat then drawStat ("Enemy stamina", stamina, 2,40) else return ()
+    --drawString (replicate 50 '*' 3,0)
+    drawString ("Progress: 75" ++ calculateStat 50, 4,0)
+    drawString ("Part 1: ", 5,5)
+    drawString ("Part 2: ", 6,5)
+    drawString ("Part 3: ", 7,5)
+    --drawString (replicate 50 '*' 8,0)
+    drawString ("Past Events: ", 10,0)
 
 drawStat :: (String, Int, Int, Int) -> IO()
 drawStat (statName, stat, x, y) = do
-        drawString (statString ++ whitespace, x,y)
         drawString (statString, x,y)
+        -- drawString (statBar, x,statLength)
                 where   statString = statName ++ ": " ++ show stat
-                        statStringLength = length statString
-                        whitespace = replicate (statStringLength - 10) ' '
-                        
-                -- ++ " " ++ calculateStat stat
+        --                 statStringLength = length statString
+        --                 whitespace = replicate (statStringLength - 15) '.'
+        --                 statLength = length whitespace + statStringLength
+        --                 statBar = " " ++ calculateStat stat
 
 --Method to draw a string at a certain position on the screen
 --Params: string: string to draw
