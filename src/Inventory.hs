@@ -55,7 +55,7 @@ data Storage = Stor [Item]
 type Item = (String, ItemType, Int, Int, Int, Int)
 --Definition for the ItemType data type
 --Has 3 values (Weapon, Shield, Armour) to describe what type an item is
-data ItemType = Weapon|Shield|Armour
+data ItemType = Weapon|Shield|Armour deriving (Show)
 
 --Pre-made items
 sword = ("Sword", Weapon, 0, 2, 1, 0) :: Item
