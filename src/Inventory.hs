@@ -24,9 +24,11 @@ module Inventory
     insertItem, -- inserts a new item into a storage object
     listStorage, -- list the Items in Storage by their names
     removeItem, -- removes the first occurance of a given Item in Storage
+    getItem, --returns the attributes of a given Item
     sword, -- basic starting weapon of type Item
     shield, -- basic starting shield of type Item
     armour, -- basic starting armour of type Item
+    goldSword, --weapon made of gold
 
 ) where
 -- Module starts here.
@@ -94,7 +96,9 @@ getSpeedEff (_, _, _, _, _, speed) = speed
 -- Seaches for an item in the Storage and removes it if it is found
 removeItem:: Item -> Storage -> Storage
 removeItem _ (Stor []) = (Stor [])
-removeItem i (Stor (x:xs)) | (itemName x) == (itemName i) = (Stor (xs))
+removeItem i (Stor (x:xs)) | (getName x) == (getName i) = (Stor (xs))
                            | otherwise = insertItem x (removeItem i (Stor (xs)))
 
-
+-- Returns the attribute of a given Item
+getItem::Item -> Item
+getAttributes i = i
