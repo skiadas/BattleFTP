@@ -53,20 +53,21 @@ getName :: Unit -> String
 getName (Unit (pName, _, _, _)) = pName
 
 --given a unit's attributes, returns its HP
-getHealth :: Attributes -> Int
-getHealth (Attributes (hp, _, _, _)) = hp
+getHealth :: Unit -> Int
+getHealth (Unit (_, (hp, _, _, _) ,_ ,_)) = hp
 
 --given a unit's attributes, returns its Attack
-getAttack :: Attributes -> Int
-getAttack (Attributes (_, atk, _, _)) = atk
+getAttack :: Unit -> Int
+getAttack (Unit (_, (_, atk, _, _) ,_ ,_)) = atk
 
 --given a unit's attributes, returns its Defense
-getDefense :: Attributes -> Int
-getDefense (Attributes (_, _, def, _)) = def
+getDefense :: Unit -> Int
+getDefense (Unit (_, (_, _, def, _) ,_ ,_)) = def
 
 --given a unit's attributes, returns its Speed
-getSpeed :: Attributes -> Int 
-getSpeed (Attributes (_, _, _, spd)) = spd
+getSpeed :: Unit -> Int 
+getSpeed (Unit (_, (_, _, _, spd) ,_ ,_)) = spd
+
 
 createUnit :: Username -> HP -> Attack -> Defense -> Speed -> IsPlayer -> Unit
 createUnit unitName maxHP atk def spd player = (Unit (unitName, (Attributes (maxHP, atk, def, spd)), False, player))
