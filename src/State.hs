@@ -31,18 +31,12 @@ import GHC.Generics
 -- Module starts here.
 
 data JSONUnit = JSONUnit {
-    username :: String--Username
-    , hp :: Int--HP
-    , attack :: Int--Attack
-    , defense :: Int--Defense
-    , speed :: Int --Speed
+    unit :: Unit (Username, Attributes, Death, IsPlayer)
  } deriving (Generic, Show)
 
 data JSONEnvironment = JSONEnvironment {
-    map :: Map
-    , block :: Block
-    , building :: Building
-    --weather??    
+    weather :: Weather 
+    location :: Location     
  } deriving (Generic, Show)
 
 data JSONInventory = JSONInventory {
@@ -50,12 +44,13 @@ data JSONInventory = JSONInventory {
  } deriving (Generic, Show) 
 
 data JSONState = JSONState {
-    JSONUnit :: --
-    JSONEnvironment :: --
-    JSONInventory :: --
-}
+    units :: [JSONUnit]
+    environment :: JSONEnvironment
+    inventory :: JSONInventory
+ } deriving (Generic, Show)
 
-instance ToJSON JSONUnit where
+
+instance ToJSON JSONUnit where 
     toEncoding = genericToEncoding defaultOptions
 
 instance FromJSON JSONUnit
