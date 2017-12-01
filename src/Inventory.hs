@@ -35,7 +35,15 @@ module Inventory
     sword, -- basic starting weapon of type Item
     shield, -- basic starting shield of type Item
     armour, -- basic starting armour of type Item
+    bronzeSword, --weapon made of bronze
+    silverSword, --weapon made of silver
     goldSword, --weapon made of gold
+    bronzeShield, --shield made of bronze
+    silverShield, --shield made of silver
+    goldShield, --shield made of gold
+    bronzeArmour, --armour made of bronze
+    silverArmour, --armour made of silver
+    goldArmour, --armour made of gold
 
 ) where
 -- Module starts here.
@@ -50,9 +58,20 @@ type Item = (String, ItemType, Int, Int, Int, Int)
 data ItemType = Weapon|Shield|Armour
 
 --Pre-made items
-sword = ("sword", Weapon, 0, 2, 1, 0) :: Item
-shield = ("shield", Shield, 0, 1, 3, -1) :: Item
-armour = ("armour", Armour, 3, 0, 0, -2) :: Item
+sword = ("Sword", Weapon, 0, 2, 1, 0) :: Item
+shield = ("Shield", Shield, 0, 1, 3, -1) :: Item
+armour = ("Armour", Armour, 3, 0, 0, -2) :: Item
+bronzeSword = ("Bronze Sword", Weapon, 0, 5, 1, 0) :: Item
+silverSword = ("Silver Sword", Weapon, 0, 7, 2, -1) :: Item
+goldSword = ("Gold Sword", Weapon, 0, 10, 2, -1) :: Item
+bronzeShield = ("Bronze Shield", Shield, 0, 1, 4, -1) :: Item
+silverShield = ("Silver Shield", Shield, 0, 2, 5, -1) :: Item
+goldShield = ("Gold Shield", Shield, 0, 2, 7, -2) :: Item
+bronzeArmour = ("Bronze Armour", Armour, 5, 0, 0, -3) :: Item
+silverArmour = ("Silver Armour", Armour, 7, 0, 0, -3) :: Item
+goldArmour = ("Gold Armour", Armour, 10, 0, 0, -4) :: Item
+
+
 
 
 -- Create the starting inventory with basic sword, sheild, and armor
