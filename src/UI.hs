@@ -63,7 +63,7 @@ stringToSubCom _ = Void
 readCom :: [String] -> (Command, SubCommand)
 readCom s = (s', s'')
     where   s' = stringToCom (head s)
-            s'' = if length s > 1 then stringToSubCom (s !! 1) else stringToSubCom ""
+            s'' = if length s == 2 then stringToSubCom (s !! 1) else stringToSubCom ""
 
 --Method to change user input to commands
 processCommand :: String -> (Command, SubCommand)
@@ -79,17 +79,46 @@ executeCommand (I, Show) = drawScreen
 executeCommand (Use, Heal) = drawScreen
 executeCommand (Pickup, Void) = drawScreen
 executeCommand (Exit, Void) = handleExit
-executeCommand (_, _) = drawScreen
+executeCommand (_, _) = printWarning
+
+--caluculate bar width max 50 --int or string?
+calculateStat :: Int -> String
+calculateStat stat = replicate (stat `div` 2) '█'
+
+--test data
+health::Int 
+health = 100
+dex::Int 
+dex = 50
+stamina::Int 
+stamina = 50
 
 --Method to draw all information to the screen...
 --Where all the UI magics will be made 😁
 drawScreen :: IO()
 drawScreen = do
     clearScreen
-    drawString ("I like food... maybe potions...", 0,0)
-    drawString ("I like food... maybe potions...", 1,0)
-    drawString ("I like food... maybe potions...", 2,0)
-    drawString ("x3...", 3,0)
+    drawStat ("Health", health, 0,0)
+    drawStat ("Dexterity", dex, 1,0)
+    drawStat ("stamina", stamina, 2,0)
+    drawString ("Progress: 75" ++ calculateStat 50, 3,0)
+    drawString ("Part 1: ", 4,5)
+    drawString ("Part 2: ", 5,5)
+    drawString ("Part 3: ", 6,5)
+
+    drawString ("Commands List: ", 8,0)
+
+    drawString ("Past Event: ", 15,0)
+
+drawStat :: (String, Int, Int, Int) -> IO()
+drawStat (statName, stat, x, y) = do
+        drawString (statString ++ whitespace, x,y)
+        drawString (statString, x,y)
+                where   statString = statName ++ ": " ++ show stat
+                        statStringLength = length statString
+                        whitespace = replicate (statStringLength - 10) ' '
+                        
+                -- ++ " " ++ calculateStat stat
 
 --Method to draw a string at a certain position on the screen
 --Params: string: string to draw
@@ -111,21 +140,26 @@ main = do
             , SetColor Foreground Vivid Blue
             , SetColor Background Dull Black ]
     drawScreen
-    gameLoop
+    gameLoop False
     
 
 -- update the game loop to add in the goodbye message
-gameLoop :: IO()
-gameLoop = do
+gameLoop :: Bool -> IO()
+gameLoop warning = do
     putStrLn "\n"
-    putStrLn "Enter The Command, Sir: "
+    if not warning then putStrLn "Enter The Command, Sir: " else putStrLn "YOU MUST ENTER A VALID COMMAND!!! 😂😂😂"
     commands <- getLine
     let comTuple = processCommand commands
 
     executeCommand comTuple
     case comTuple of
         (Exit, Void) -> handleExit
-        _    -> gameLoop
+        _    -> gameLoop False
+
+
+printWarning :: IO()
+printWarning = gameLoop True
+    
 
   -- when the user wants to exit we give them a thank you
   -- message and reset the terminal
