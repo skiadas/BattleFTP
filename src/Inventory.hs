@@ -24,6 +24,12 @@ module Inventory
     insertItem, -- inserts a new item into a storage object
     listStorage, -- list the Items in Storage by their names
     removeItem, -- removes the first occurance of a given Item in Storage
+    getName, --returns the String name a given item
+    getType, --returns the itemType a given item
+    getHPEff, --returns the effect on HP of a given item
+    getAttackEff, --returns the effect on Attack of a given item
+    getDefEff, --returns the effect on Defense of a given item
+    getSpeedEff, --returns the effect on speed of a given item
     getItem, --returns the attributes of a given Item
     sword, -- basic starting weapon of type Item
     shield, -- basic starting shield of type Item
