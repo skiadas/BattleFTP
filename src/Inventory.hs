@@ -31,6 +31,7 @@ module Inventory
     getDefEff, --returns the effect on Defense of a given item
     getSpeedEff, --returns the effect on speed of a given item
     getItem, --returns the attributes of a given Item
+    findItem, -- given a storage and an item in returns a Maybe Item if the Item is in the storage
     sword, -- basic starting weapon of type Item
     shield, -- basic starting shield of type Item
     armour, -- basic starting armour of type Item
@@ -108,3 +109,9 @@ removeItem i (Stor (x:xs)) | (getName x) == (getName i) = (Stor (xs))
 -- Returns the attribute of a given Item
 getItem::Item -> Item
 getItem i = i
+
+-- Searchs for and returns a certain item
+findItem::Storage -> Item ->  Maybe Item
+findItem (Stor []) _ = Nothing
+findItem (Stor (x:xs)) i | (getName x) == (getName i) = Just x
+                         | otherwise = findItem (Stor (xs)) i
