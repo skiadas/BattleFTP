@@ -72,21 +72,35 @@ processCommand s = readCom (words (map toLower s))
 
 --Method to execute commands
 executeCommand :: (Command, SubCommand) -> IO()
-executeCommand (Move, F) = drawScreen
-executeCommand (Move, B) = drawScreen
-executeCommand (Move, L) = drawScreen
-executeCommand (Move, R) = drawScreen
-executeCommand (I, Show) = drawScreen
-executeCommand (Use, Heal) = drawScreen
-executeCommand (Pickup, Void) = drawScreen
+executeCommand (Move, F) = moveF
+executeCommand (Move, B) = moveB
+executeCommand (Move, L) = moveL
+executeCommand (Move, R) = moveR
+executeCommand (I, Show) = drawScreen -- keep this command or?
+executeCommand (Use, Heal) = healMe
+executeCommand (Pickup, Void) = pickupThis
 executeCommand (Exit, Void) = handleExit
 executeCommand (_, _) = printWarning
+
+--commands-- TODO:hook these up
+moveF :: IO()
+moveF = drawString ("Slot 10: RED",13,20)
+moveB :: IO()
+moveB = drawString ("Slot 10: RED",13,20)
+moveL :: IO()
+moveL = drawString ("Slot 10: RED",13,20)
+moveR :: IO()
+moveR = drawString ("Slot 10: RED",13,20)
+healMe :: IO()
+healMe = drawString ("Slot 10: RED",13,20)
+pickupThis :: IO()
+pickupThis = drawString ("Slot 10: RED",13,20)
 
 --caluculate bar width max 50 --int or string?
 calculateStat :: Int -> String
 calculateStat stat = replicate (stat `div` 2) '█'
 
---test data
+--test data TODO: replace with real state
 health::Int 
 health = 100
 dex::Int 
@@ -108,7 +122,7 @@ event4 = ""
 
 --Method to draw all information to the screen...
 --Where all the UI magics will be made 😁
-drawScreen :: IO()
+drawScreen ::IO()
 drawScreen = do
     clearScreen
     drawStat ("Health", health, 0,0)
@@ -183,7 +197,7 @@ main = do
             , SetColor Foreground Vivid Blue
             , SetColor Background Dull Black ]
     drawScreen
-    gameLoop False
+    normalGameLoop
     
 
 -- update the game loop to add in the goodbye message
@@ -197,12 +211,14 @@ gameLoop warning = do
     executeCommand comTuple
     case comTuple of
         (Exit, Void) -> handleExit
-        _    -> gameLoop False
+        _    -> normalGameLoop
 
 
 printWarning :: IO()
 printWarning = gameLoop True
     
+normalGameLoop :: IO()
+normalGameLoop = gameLoop False
 
   -- reset the SGR and give a thank you message/¿massage?
 handleExit :: IO()
@@ -212,4 +228,3 @@ handleExit = do
     setCursorPosition 0 0
     showCursor
     putStrLn "Thanks for playing!!! 😂😂😂"
-    --putStrLn "\xF0\x9F\x98\x82"
