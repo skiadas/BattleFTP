@@ -63,7 +63,7 @@ stringToSubCom _ = Void
 
 readCom :: [String] -> (Command, SubCommand)
 readCom s = (s', s'')
-    where   s' = stringToCom (head s)
+    where   s' = if not (null s) then stringToCom (head s) else stringToCom ""
             s'' = if length s == 2 then stringToSubCom (s !! 1) else stringToSubCom ""
 
 --Method to change user input to commands
@@ -203,6 +203,7 @@ main = do
 -- update the game loop to add in the goodbye message
 gameLoop :: Bool -> IO()
 gameLoop warning = do
+    drawScreen
     putStrLn "\n"
     if not warning then putStrLn "Enter The Command: " else putStrLn "YOU MUST ENTER A VALID COMMAND!!! 😂😂😂"
     commands <- getLine
