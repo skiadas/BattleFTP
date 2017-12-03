@@ -4,18 +4,17 @@ Description : The UI module
 Copyright   : (c) Alexander Martens, 2017
                   Patrick Conboy, 2017
 License     : MIT ( (BSD-3) )
-Maintainer  : conboyp19@hanover.edu
+Maintainer  : support@hanover.edu
 
 
 The UI module communicates with the user by writing fancy ANSI graphics to 
 the terminal and accepting user input in the form of text. The UI module is 
 reponsible for all interaction with the user. The UI module shall call other
 modules in accordance with the terms. No other module shall interfere with user
-input, and no other module may ping the UI module to do anything. The user is the
-only one the application serves. (((Google)))
-
+input and no other module may ping the UI module to do anything. The user is the
+only one the application servers. (((Google)))
 Random events for any reason will be triggered by the UI and the UI will always supply
-sufficient information for the rest of the application.
+sufficient information to for the rest of the application.
 -}
 -- module UI
 -- (
@@ -27,6 +26,7 @@ import Prelude hiding (Either(..))
 import System.Console.ANSI
 import System.IO
 import Data.Char
+import Control.Monad
 
 data Command = Empty
             |Move
@@ -84,7 +84,7 @@ executeCommand (_, _) = printWarning
 
 --caluculate bar width max 50 --int or string?
 calculateStat :: Int -> String
-calculateStat stat = replicate (stat `div` 10) '█'
+calculateStat stat = replicate (stat `div` 2) '█'
 
 --test data
 health::Int 
@@ -93,8 +93,18 @@ dex::Int
 dex = 50
 stamina::Int 
 stamina = 50
+progress::Int 
+progress = 75
 combat::Bool
 combat = True
+event1::String
+event1 = "old mcdonald died"
+event2::String
+event2 = "I got more food"
+event3::String
+event3 = "healed for 10 bucks"
+event4::String
+event4 = ""
 
 --Method to draw all information to the screen...
 --Where all the UI magics will be made 😁
@@ -104,17 +114,49 @@ drawScreen = do
     drawStat ("Health", health, 0,0)
     drawStat ("Dexterity", dex, 1,0)
     drawStat ("stamina", stamina, 2,0)
-    if combat then drawStat ("Enemy Health", health, 0,40) else return ()
-    if combat then drawStat ("Enemy Dexterity", dex, 1,40) else return ()
-    if combat then drawStat ("Enemy stamina", stamina, 2,40) else return ()
-    --drawString (replicate 50 '*' 3,0)
-    drawString ("Progress: 75" ++ calculateStat 50, 4,0)
-    drawString ("Part 1: ", 5,5)
-    drawString ("Part 2: ", 6,5)
-    drawString ("Part 3: ", 7,5)
-    --drawString (replicate 50 '*' 8,0)
-    drawString ("Past Events: ", 10,0)
+    when combat $ drawStat ("Enemy Health", health, 0, 40)
+    when combat $ drawStat ("Enemy Dexterity", dex, 1, 40)
+    when combat $ drawStat ("Enemy stamina", stamina, 2, 40)
 
+    drawString (replicate 80 '*', 4, 0)
+    drawString ("Progress: " ++ show progress ++ " " ++ calculateStat progress, 5,0)
+    drawString ("Part 1: ", 6,0)
+    drawString ("Part 2: ", 6,20)
+    drawString ("Part 3: ", 6,40)
+    
+    drawString ("Inventory: ", 8,0)
+
+    drawString ("Slot 1: ", 9,0)
+    drawString ("Slot 2: ", 10,0)
+    drawString ("Slot 3: ", 11,0)
+    drawString ("Slot 4: ", 12,0)
+    drawString ("Slot 5: ", 13,0)
+
+    drawString ("Slot 6: ", 9,20)
+    drawString ("Slot 7: ", 10,20)
+    drawString ("Slot 8: ", 11,20)
+    drawString ("Slot 9: ", 12,20)
+    drawString ("Slot 10: ",13,20)
+
+    drawString ("Slot 11: ", 9,40)
+    drawString ("Slot 12: ", 10,40)
+    drawString ("Slot 13: ", 11,40)
+    drawString ("Slot 14: ", 12,40)
+    drawString ("Slot 15: ", 13,40)
+
+    drawString ("Slot 16: ", 9,60)
+    drawString ("Slot 17: ", 10,60)
+    drawString ("Slot 18: ", 11,60)
+    drawString ("Slot 19: ", 12,60)
+    drawString ("Slot 20: ", 13,60)
+    
+    drawString (replicate 80 '*', 14, 0)
+    drawString ("Past Events: ", 15,0)
+    unless (null event1) $ drawString (event1, 16, 5)
+    unless (null event2) $ drawString (event2, 17, 5)
+    unless (null event3) $ drawString (event3, 18, 5)
+    unless (null event4) $ drawString (event4, 19, 5)
+    
 drawStat :: (String, Int, Int, Int) -> IO()
 drawStat (statName, stat, x, y) = do
         drawString (statString, x,y)
@@ -137,10 +179,6 @@ drawString (string, x, y) = do
 main :: IO()
 main = do 
     setTitle "Battle! For The Point"
-    --hSetEcho stdin False --how do we accept input?
-    --hSetBuffering stdin  NoBuffering --sounds like we want buffering
-    --hSetBuffering stdout NoBuffering --sounds like we want buffering
-    --hideCursor
     setSGR [ SetConsoleIntensity BoldIntensity
             , SetColor Foreground Vivid Blue
             , SetColor Background Dull Black ]
@@ -152,7 +190,7 @@ main = do
 gameLoop :: Bool -> IO()
 gameLoop warning = do
     putStrLn "\n"
-    if not warning then putStrLn "Enter The Command, Sir: " else putStrLn "YOU MUST ENTER A VALID COMMAND!!! 😂😂😂"
+    if not warning then putStrLn "Enter The Command: " else putStrLn "YOU MUST ENTER A VALID COMMAND!!! 😂😂😂"
     commands <- getLine
     let comTuple = processCommand commands
 
@@ -166,14 +204,12 @@ printWarning :: IO()
 printWarning = gameLoop True
     
 
-  -- when the user wants to exit we give them a thank you
-  -- message and reset the terminal
+  -- reset the SGR and give a thank you message/¿massage?
 handleExit :: IO()
 handleExit = do
     setSGR [Reset]
     clearScreen
     setCursorPosition 0 0
     showCursor
-    putStrLn "Thank you for playing!!!"
-    --putStrLn "\xF0\x9F\x98\x82" 
-    putStrLn "😂😂😂"
+    putStrLn "Thanks for playing!!! 😂😂😂"
+    --putStrLn "\xF0\x9F\x98\x82"
