@@ -29,6 +29,7 @@ import Control.Monad
 data Command = Empty
             |Move
             |I
+            |Equip
             |Use
             |Pickup
             |Exit
@@ -41,6 +42,9 @@ data SubCommand = Void
                 |R
                 |Show
                 |Heal
+                |Sword
+                |Weapon
+                |Armour
 
 
 stringToCom :: String -> Command
@@ -49,6 +53,7 @@ stringToCom "i" = I
 stringToCom "use" = Use
 stringToCom "pickup" = Pickup
 stringToCom "exit" = Exit
+stringToCom "equip" = Equip
 stringToCom "" = Attack
 stringToCom _ = Empty
 
@@ -59,6 +64,9 @@ stringToSubCom "l" = L
 stringToSubCom "r" = R
 stringToSubCom "show" = Show
 stringToSubCom "food" = Heal --food?
+stringToSubCom "sword" = Sword
+stringToSubCom "weapon" = Weapon
+stringToSubCom "armor" = Armour
 stringToSubCom _ = Void
 
 readCom :: [String] -> (Command, SubCommand)
@@ -81,6 +89,7 @@ executeCommand (Use, Heal) = healMe
 executeCommand (Pickup, Void) = pickupThis
 executeCommand (Exit, Void) = handleExit
 executeCommand (Attack, _) = attack
+executeCommand (Equip, a) = equip a
 executeCommand (_, _) = printWarning
 
 --commands-- TODO:hook these up
@@ -98,6 +107,10 @@ pickupThis :: IO()
 pickupThis = drawString ("Slot 10: RED",13,20)
 attack :: IO()
 attack = drawString ("Slot 10: RED",13,20)
+
+--Equip the best sword, weapon, etc
+equip :: SubCommand -> IO()
+equip item = drawString ("Slot 10: RED",13,20)
 
 --caluculate bar width max 50 --int or string?
 calculateStat :: Int -> String
@@ -130,10 +143,10 @@ drawScreen = do
     clearScreen
     drawStat ("Health", health, 0,0)
     drawStat ("Dexterity", dex, 1,0)
-    drawStat ("stamina", stamina, 2,0)
+    drawStat ("Stamina", stamina, 2,0)
     when combat $ drawStat ("Enemy Health", health, 0, 40)
     when combat $ drawStat ("Enemy Dexterity", dex, 1, 40)
-    when combat $ drawStat ("Enemy stamina", stamina, 2, 40)
+    when combat $ drawStat ("Enemy Stamina", stamina, 2, 40)
 
     drawString (replicate 80 '*', 4, 0)
     drawString ("Progress: " ++ show progress ++ " " ++ calculateStat progress, 5,0)
@@ -197,7 +210,7 @@ main :: IO()
 main = do 
     setTitle "Battle! For The Point"
     setSGR [ SetConsoleIntensity BoldIntensity
-            , SetColor Foreground Vivid Blue
+            , SetColor Foreground Dull Red
             , SetColor Background Dull Black ]
     drawScreen
     normalGameLoop
@@ -208,7 +221,7 @@ gameLoop :: Bool -> IO()
 gameLoop warning = do
     drawScreen
     putStrLn "\n"
-    if not warning then putStrLn "Enter The Command: " else putStrLn "YOU MUST ENTER A VALID COMMAND!!! 😂😂😂"
+    if not warning then putStrLn "Enter The Command: " else putStrLn "YOU MUST ENTER A VALID COMMAND: "
     commands <- getLine
     let comTuple = processCommand commands
 
