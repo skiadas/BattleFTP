@@ -16,17 +16,21 @@ unit, and inventory.
 
 -}
 
+
+
+
+module State
+(
+    blankGame,
+
+) where
+
 import Data.Aeson
 --import Unit.hs
 --import Environment.hs
 --import Inventory.hs
+--import State.State
 import GHC.Generics
-
-
---module State
---(
-
---) where
 
 -- Module starts here.
 
@@ -69,3 +73,8 @@ instance ToJSON JSONState where
     toEncoding = genericToEncoding defaultOptions
 
 instance FromJSON JSONState
+
+
+
+
+
