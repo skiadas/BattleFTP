@@ -19,6 +19,7 @@ module Inventory
 (
     Storage, -- exporting the storage type
     Item, -- exporting the item type
+    ItemType, --exporting the ItemType type
     storage, -- constructor for making a starting Storage
     numItems, -- returns the number of items in a storage object
     insertItem, -- inserts a new item into a storage object
