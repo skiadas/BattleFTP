@@ -18,7 +18,8 @@ module AI
     -- ** A data type
     AI, -- exporting module
     -- some functions
-    findLowestHp
+    findLowestHp,
+    isBoss
 ) where
 
 -- Module starts here.
