@@ -18,7 +18,7 @@
 
 ## Combat
 
-* Attack Mode where we keysmash
+* Attack: keysmash the enter key
 
 ## Game
 

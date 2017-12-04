@@ -32,6 +32,7 @@ data Command = Empty
             |Use
             |Pickup
             |Exit
+            |Attack
 
 data SubCommand = Void
                 |F
@@ -48,6 +49,7 @@ stringToCom "i" = I
 stringToCom "use" = Use
 stringToCom "pickup" = Pickup
 stringToCom "exit" = Exit
+stringToCom "" = Attack
 stringToCom _ = Empty
 
 stringToSubCom :: String -> SubCommand
@@ -78,6 +80,7 @@ executeCommand (I, Show) = drawScreen -- keep this command or?
 executeCommand (Use, Heal) = healMe
 executeCommand (Pickup, Void) = pickupThis
 executeCommand (Exit, Void) = handleExit
+executeCommand (Attack, _) = attack
 executeCommand (_, _) = printWarning
 
 --commands-- TODO:hook these up
@@ -93,6 +96,8 @@ healMe :: IO()
 healMe = drawString ("Slot 10: RED",13,20)
 pickupThis :: IO()
 pickupThis = drawString ("Slot 10: RED",13,20)
+attack :: IO()
+attack = drawString ("Slot 10: RED",13,20)
 
 --caluculate bar width max 50 --int or string?
 calculateStat :: Int -> String
