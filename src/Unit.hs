@@ -22,8 +22,10 @@ Attributes
 -}
 
 
+
 module Unit
 (
+ Unit,
  createUnit,
  changeHealth,
  changeAttack,
@@ -38,6 +40,7 @@ module Unit
 
 ) where
 
+import Inventory 
 
 type Username = String
 type HP = Int
@@ -46,9 +49,13 @@ type Attack = Int --A stat that influences damage done in battle
 type Defense = Int --A stat that influences how much damage is taken in battle
 type Speed = Int --A stat that influences avoid chance and turn order
 data Attributes = Attributes (HP,MaxHP,Attack,Defense,Speed)
-data Unit = Unit (Username, Attributes, Death, IsPlayer) --The collection of important stats
+data Unit = Unit (Username, Attributes,Equipment, Death, IsPlayer) --The collection of important stats
 type Death = Bool --Is a unit dead or not. Defaults to alive
 type IsPlayer = Bool  --Is it a player or not. Defaults to Enemy
+{-data Equipment = Equipment(Unit, HasSword, HasShield, HasArmor, Storage)
+type HasSword = Maybe Weapon
+type HasShield = Maybe Shield
+type HasArmor = Maybe Armour-}
 
 -- Module starts here.
 
