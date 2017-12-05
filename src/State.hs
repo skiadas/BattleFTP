@@ -35,7 +35,7 @@ import GHC.Generics
 -- Module starts here.
 
 data JSONUnit = JSONUnit {
-    unit :: Unit (Username, Attributes, Death, IsPlayer)
+    unit :: Unit (Username, Attributes, Equipment, Death, IsPlayer)
  } deriving (Generic, Show)
 
 data JSONEnvironment = JSONEnvironment {
