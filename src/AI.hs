@@ -25,7 +25,7 @@ module AI
 -- Module starts here.
 
 import System.Random
-import Combat.Action
+--import Combat.ActionOptions
 import Unit
 
 -- A function that returns the AI unit with the least health.
