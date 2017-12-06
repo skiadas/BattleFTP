@@ -45,6 +45,11 @@ module Inventory
     bronzeArmour, --armour made of bronze
     silverArmour, --armour made of silver
     goldArmour, --armour made of gold
+    skiadasSword, --extremely powerful, magical weapon that increases all user attributes
+    wiffleBat, -- useless weapon that could lead to drunken memories of fun and friendship
+    catSuit, -- cat fur armour that gives the user to speed of Prof. Wilson's cats
+    imageStacker, -- shield composed of C++ that disorients and confuses your oponant
+    franksSpatula, -- weapon that seemless cuts through any enemy do to 25 years of burger grease
 
 ) where
 -- Module starts here.
@@ -71,9 +76,11 @@ goldShield = ("Gold Shield", Shield, 0, 2, 7, -2) :: Item
 bronzeArmour = ("Bronze Armour", Armour, 5, 0, 0, -3) :: Item
 silverArmour = ("Silver Armour", Armour, 7, 0, 0, -3) :: Item
 goldArmour = ("Gold Armour", Armour, 10, 0, 0, -4) :: Item
-
-
-
+skiadasSword = ("Sword of Skiadas", Weapon, 2, 15, 5, 8) :: Item
+wiffleBat = ("Wiffleball Bat", Weapon, -1, 0, 0, -5) :: Item
+catSuit = ("Cat Suit", Armour, 5, 1, 1, 6) :: Item
+imageStacker = ("Image Stacker", Shield, 0, 2, 8, 5) :: Item
+franksSpatula = ("Franks Spatula", Weapon, 0, 10, 5, 0) :: Item
 
 -- Create the starting inventory with basic sword, sheild, and armor
 storage:: Storage
