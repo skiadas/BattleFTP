@@ -52,10 +52,10 @@ data Attributes = Attributes (HP,MaxHP,Attack,Defense,Speed)
 data Unit = Unit (Username, Attributes,Equipment, Death, IsPlayer) --The collection of important stats
 type Death = Bool --Is a unit dead or not. Defaults to alive
 type IsPlayer = Bool  --Is it a player or not. Defaults to Enemy
-{-data Equipment = Equipment(Unit, HasSword, HasShield, HasArmor, Storage)
+data Equipment = Equipment(Unit, HasSword, HasShield, HasArmor, Storage)
 type HasSword = Maybe Weapon
 type HasShield = Maybe Shield
-type HasArmor = Maybe Armour-}
+type HasArmor = Maybe Armour
 
 -- Module starts here.
 
