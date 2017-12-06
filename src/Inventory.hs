@@ -55,6 +55,7 @@ module Inventory
 -- Module starts here.
 -- Definition for the Storage data type
 -- A list of items in the units possession
+-- List of all items that a unit can equip
 data Storage = Stor [Item] 
 -- Definition for the Item data type
 -- An Item is a 6-tuple with values: (name, ItemType, HP, Attack, Defense, Speed)
