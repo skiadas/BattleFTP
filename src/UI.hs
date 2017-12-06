@@ -78,6 +78,9 @@ readCom s = (s', s'')
 processCommand :: String -> (Command, SubCommand)
 processCommand s = readCom (words (map toLower s))
 
+processName :: String -> String
+processName s = s
+
 --Method to execute commands
 executeCommand :: (Command, SubCommand) -> IO()
 executeCommand (Move, F) = moveF
@@ -217,13 +220,17 @@ main = do
     
 
 -- update the game loop to add in the goodbye message
-gameLoop :: Bool -> IO()
-gameLoop warning = do
+gameLoop :: Bool -> Bool -> IO()
+gameLoop warning firstrun = do
     drawScreen
     putStrLn "\n"
-    if not warning then putStrLn "Enter The Command: " else putStrLn "YOU MUST ENTER A VALID COMMAND: "
+    if not warning && not firstrun then putStrLn "Enter The Command: "
+                                    else if firstrun then putStrLn "What Is Your Name: "
+                                    else putStrLn "YOU MUST ENTER A VALID COMMAND: "
     commands <- getLine
-    let comTuple = processCommand commands
+
+    let comTuple | not firstrun  = processCommand commands
+                 |otherwise = processName commands
 
     executeCommand comTuple
     case comTuple of
@@ -232,10 +239,13 @@ gameLoop warning = do
 
 
 printWarning :: IO()
-printWarning = gameLoop True
+printWarning = gameLoop True False
     
 normalGameLoop :: IO()
-normalGameLoop = gameLoop False
+normalGameLoop = gameLoop False False
+
+firstGameLoop :: IO()
+firstGameLoop = gameLoop False True
 
   -- reset the SGR and give a thank you message/¿massage?
 handleExit :: IO()
