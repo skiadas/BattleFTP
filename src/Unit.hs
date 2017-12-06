@@ -31,7 +31,11 @@ module Unit
  changeAttack,
  changeDefense,
  changeSpeed,
- getName,
+ HasSword,
+ HasShield,
+ HasArmor,
+ Equipment,
+ getUserName, 
  getHealth,
  getMaxHP,
  getAttack,
@@ -49,19 +53,19 @@ type Attack = Int --A stat that influences damage done in battle
 type Defense = Int --A stat that influences how much damage is taken in battle
 type Speed = Int --A stat that influences avoid chance and turn order
 data Attributes = Attributes (HP,MaxHP,Attack,Defense,Speed)
-data Unit = Unit (Username, Attributes,Equipment, Death, IsPlayer) --The collection of important stats
+data Unit = Unit (Username, Attributes, Death, IsPlayer) --The collection of important stats
 type Death = Bool --Is a unit dead or not. Defaults to alive
 type IsPlayer = Bool  --Is it a player or not. Defaults to Enemy
 data Equipment = Equipment(Unit, HasSword, HasShield, HasArmor, Storage)
-type HasSword = Maybe Weapon
-type HasShield = Maybe Shield
-type HasArmor = Maybe Armour
+type HasSword = Maybe Item
+type HasShield = Maybe Item
+type HasArmor = Maybe Item
 
 -- Module starts here.
 
 --Given a unit returns that unit's name
-getName :: Unit -> String
-getName (Unit (pName, _, _, _)) = pName
+getUserName :: Unit -> String
+getUserName (Unit (pName, _,  _, _)) = pName
 
 --given a unit's attributes, returns its HP
 getHealth :: Unit -> Int
