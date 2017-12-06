@@ -91,46 +91,57 @@ insertItem i (Stor stor1) = Stor newStorage
     where newStorage = stor1 ++ [i]
 
 -- Returns a list of the names of the Items in your Storage
+-- Items are unordered
 listStorage:: Storage -> [String]
 listStorage (Stor []) = []
 listStorage (Stor ((name, _, _, _, _, _): xs)) = name : listStorage (Stor (xs))
 
 -- Returns the name of a given item
+--Return type: String
 getName:: Item -> String
 getName (name, _, _, _, _, _) = name
 
 -- Returns the type of a given item
+-- (Weapon, Shield, Armour)
 getType:: Item -> ItemType
 getType (_, iType, _, _, _, _) = iType
 
 -- Returns the type of a given item
+-- Returns the amount a item will effect HP
 getHPEff:: Item -> Int
 getHPEff (_, _, hp, _, _, _) = hp
 
 -- Returns the type of a given item
+-- Returns the amount a item will effect Attack
 getAttackEff:: Item -> Int
 getAttackEff (_, _, _, attack, _, _) = attack
 
 -- Returns the type of a given item
+-- Returns the amount a item will effect Defense
 getDefEff:: Item -> Int
 getDefEff (_, _, _, _, defense, _) = defense
 
 -- Returns the type of a given item
+-- Returns the amount a item will effect Speed
 getSpeedEff:: Item -> Int
 getSpeedEff (_, _, _, _, _, speed) = speed
 
 
--- Seaches for an item in the Storage and removes it if it is found
+-- Seaches for an item in the Storage and removes one copy of that item if it is found
+-- If the item is not found the initial storage is returned
+-- If found the initial storage minus the removed item
 removeItem:: Item -> Storage -> Storage
 removeItem _ (Stor []) = (Stor [])
 removeItem i (Stor (x:xs)) | (getName x) == (getName i) = (Stor (xs))
                            | otherwise = insertItem x (removeItem i (Stor (xs)))
 
 -- Returns the attribute of a given Item
+-- Returns the attributes in tuple form
 getItem::Item -> Item
 getItem i = i
 
 -- Searchs for and returns a certain item
+--Will return a Maybe Item ("Nothing" if not found, "Just Item" if found)
 findItem::Storage -> Item ->  Maybe Item
 findItem (Stor []) _ = Nothing
 findItem (Stor (x:xs)) i | (getName x) == (getName i) = Just x
