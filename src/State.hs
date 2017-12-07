@@ -21,7 +21,7 @@ unit, and inventory.
 
 module State
 (
-    blankGame,
+    --what do we call in here
 
 ) where
 
@@ -34,6 +34,9 @@ import GHC.Generics
 
 -- Module starts here.
 
+-- use JSON to read and write values from other files
+-- makes it easier to store
+
 data JSONUnit = JSONUnit {
     unit :: Unit (Username, Attributes, Equipment, Death, IsPlayer)
  } deriving (Generic, Show)
@@ -44,7 +47,7 @@ data JSONEnvironment = JSONEnvironment {
  } deriving (Generic, Show)
 
 data JSONInventory = JSONInventory {
-    item :: Item 
+    equipment :: Equipment 
  } deriving (Generic, Show) 
 
 data JSONState = JSONState {
@@ -53,6 +56,7 @@ data JSONState = JSONState {
     inventory :: JSONInventory
  } deriving (Generic, Show)
 
+-- change regular units, environment, and inventory to JSON
 
 instance ToJSON JSONUnit where 
     toEncoding = genericToEncoding defaultOptions
