@@ -21,15 +21,24 @@ unit, and inventory.
 
 module State
 (
-    --what do we call in here
-
+    blankGame,
+    getUnits,
+    getEnviro,
+    getInv,
+    updateEnvironment,
+    unitHelper,
+    updateUnit,
+    inventoryHelper,
+    updateInventory,
+    addUnit
+    
 ) where
 
 import Data.Aeson
---import Unit.hs
---import Environment.hs
---import Inventory.hs
---import State.State
+import Unit.hs
+import Environment.hs
+import Inventory.hs
+import State.State
 import GHC.Generics
 
 -- Module starts here.
