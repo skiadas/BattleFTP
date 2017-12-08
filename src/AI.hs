@@ -17,11 +17,12 @@ commentary:
     list of either Ai or Ui units.
 
     lessThan50PercentHp is a function that 
-    looks for a unit whose hp<=50% out of the 
-    given list of Ai/Ui units.
+    looks for a unit whose health is less 
+    than half of its max health out of the 
+    given list of Ai or Ui units.
 
-    choseAction s a function that returns 
-    an Action for the AI unit to perform. 
+    choseAction is a function that returns 
+    an Action for the turn AI unit to perform. 
 -}
 module AI
 (
@@ -56,7 +57,8 @@ lessThan50PercentHp (x:xs)
 
 -- A function that returns an Action for the AI to perform. 
 -- Unit is the current Ai whose turn it is.
--- 1st [Unit] is the Ai units, including the turn Ai.
+-- 1st [Unit] is the Ai units, including the turn Ai. This is basically
+--   the turn Ai and its allies if there are any.
 -- 2nd [Unit] is the Ui/player units.
 chooseAction:: Unit -> [Unit] -> [Unit] -> IO Action
 chooseAction ai (ais:friends) (player:rest) = do
