@@ -67,19 +67,19 @@ data ItemType = Weapon|Shield|Armour deriving (Show)
 --Pre-made items
 sword = ("Sword", Weapon, 0, 2, 1, 0) :: Item
 shield = ("Shield", Shield, 0, 1, 3, -1) :: Item
-armour = ("Armour", Armour, 3, 0, 0, -2) :: Item
+armour = ("Armour", Armour, 3, 0, 3, -2) :: Item
 bronzeSword = ("Bronze Sword", Weapon, 0, 5, 1, 0) :: Item
 silverSword = ("Silver Sword", Weapon, 0, 7, 2, -1) :: Item
 goldSword = ("Gold Sword", Weapon, 0, 10, 2, -1) :: Item
 bronzeShield = ("Bronze Shield", Shield, 0, 1, 4, -1) :: Item
 silverShield = ("Silver Shield", Shield, 0, 2, 5, -1) :: Item
 goldShield = ("Gold Shield", Shield, 0, 2, 7, -2) :: Item
-bronzeArmour = ("Bronze Armour", Armour, 5, 0, 0, -3) :: Item
-silverArmour = ("Silver Armour", Armour, 7, 0, 0, -3) :: Item
-goldArmour = ("Gold Armour", Armour, 10, 0, 0, -4) :: Item
+bronzeArmour = ("Bronze Armour", Armour, 5, 0, 5, -3) :: Item
+silverArmour = ("Silver Armour", Armour, 7, 0, 7, -3) :: Item
+goldArmour = ("Gold Armour", Armour, 10, 0, 10, -4) :: Item
 skiadasSword = ("Sword of Skiadas", Weapon, 2, 15, 5, 8) :: Item
 wiffleBat = ("Wiffleball Bat", Weapon, -1, 0, 0, -5) :: Item
-catSuit = ("Cat Suit", Armour, 5, 1, 1, 6) :: Item
+catSuit = ("Cat Suit", Armour, 5, 1, 5, 6) :: Item
 imageStacker = ("Image Stacker", Shield, 0, 2, 8, 5) :: Item
 franksSpatula = ("Franks Spatula", Weapon, 0, 10, 5, 0) :: Item
 
