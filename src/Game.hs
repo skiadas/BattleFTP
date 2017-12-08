@@ -51,15 +51,15 @@ commentary with @some markup@:
 -- Since no other group seems to have imported any other group's modules
 -- Once the final version of all group modules are ready, we can go ahead and remove the redundant ones.
 
-import Combat
-import UI
-import Unit
-
 module Game
 (
   playMain
 
 ) where
+
+import Combat
+import UI
+import Unit
 
 makeHero:: String -> IO Unit
 makeHero str = do
