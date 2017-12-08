@@ -26,7 +26,6 @@ commentary:
 -}
 module AI
 (
-    -- ** A data type
     -- some functions
     chooseAction
 ) where
@@ -34,7 +33,7 @@ module AI
 -- Module starts here.
 
 import System.Random
---import Combat.ActionOptions
+import Combat.ActionOptions
 import Unit
 
 -- A function that returns the AI unit with the least health.
@@ -60,14 +59,12 @@ lessThan50PercentHp (x:xs)
 -- 1st [Unit] is the Ai units, including the turn Ai. This is basically
 --   the turn Ai and its allies if there are any.
 -- 2nd [Unit] is the Ui/player units.
-chooseAction:: Unit -> [Unit] -> [Unit] -> IO Action
-chooseAction ai (ais:friends) (player:rest) = do
+chooseAction:: (Unit,Unit)-> IO Action
+chooseAction ai player = do
         x <- rollDice
-        if lessThan50PercentHp (ai:ais:friends) && rollDice <= 35
-            then return  Heal (ai, allie)
-            else return  Attack (ai, enemy) 
-                where allie = findLowestHp (ai:ais:friends)
-                      enemy = findLowestHp (player:rest)
+        if lessThan50PercentHp [ai] && rollDice <= 35
+            then return  Heal (ai, ai)
+            else return  Attack (ai, player) 
 
 -- A helper function for chooseAction.
 -- returns a random number betwee 1 and 100. 
