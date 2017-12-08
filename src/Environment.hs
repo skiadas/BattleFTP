@@ -7,60 +7,42 @@ License     : MIT
 Maintainer  : haflg19@hanover.edu
               veasyt19@hanover.edu
 
-Here is a longer description of this module, containing some
-commentary with @some markup@. FIX THIS
+The Environment module tracks the current Location of the player and provides the functionality to control this. The players Location is defined by @data Location@. This can be tracked and modified with several methods: @path@, @getLocationindex@, @getLocation@, @nextLocation@.
 -}
-import State
 import Data.List
 
-module Environment
-(
-	-- Location,
-	-- Map (...),
-	-- Block,
+-- module Environment
+-- (
+--  -- public datas and types
+--  Location,
 
-	-- initMap,
-	-- getMap,
-	-- getLocation,
-	-- updateMap
-) where
+--  -- public functions
+--  path,
+--  getLocation,
+--  getLocationIndex,
+--  nextLocation
+-- ) where
 
 -- Module starts here
 
-data Location = "Scenic Drive" | "Library" | "CC" | "Parker" | "Point"
-
-locations :: [Location]
-locations = ["Scenic Drive", "Library", "CC", "Parker", "Point"]
-
-indLocation :: Location -> Location
-indLocation currLocation = elemIndex currLocation locations
-
-findLocation :: Location -> Location
-findLocation currLocation = locations !! ((indLocation currLocation) + 1)
-
- -- Needs Fixed, Possible Block types: S (Start), G (Goal)
--- data Type = X | O | I
--- data Floor = 1 | 2 | 3
-
--- type Map = ([Block], Location, Weather) -- Grid Map, each Block is a place the player can move to
--- type Block = (Type, Type, Type, Type, Type) -- Current block Type, Up, Right, Down, Left
--- type Location = (Num, Num)
-
--- returns the starting map from the JSON file
--- initMap :: Map
--- initMap = ....
-
--- returns the players current Location
--- getLocation :: Map -> Location
--- getLocation (_, Location, _) = location
-
--- returns the map variable
--- getMap :: Map
--- getMap (map, _, _) = Map
-
--- Not Working !!! Needs to correctly search the JSON file in order to update the weather
--- Takes in the current map and a Location, and returns a new Map with the updated Location and Weather
--- updateMap :: Map -> Location -> Map
--- updateMap (map, loc, weather) (x, y)) = ....
+data Location = Scenic | Library | CC | Parker | Point deriving (Eq, Show)
+type Spot = (Location, Int)
 
 
+path :: [Location]
+path = [Scenic, Library, CC, Parker, Point]
+
+spotFromInd :: Int -> Spot
+spotFromInd a = (Scenic, 0)
+
+spotFromName :: Location -> Spot
+spotFromName a = (Scenic, 0)
+
+getLocationName :: Int -> Location
+getLocationName a = Scenic
+
+getLocationIndex :: Location -> Int
+getLocationIndex a = 0
+
+nextLocation :: Spot -> Spot
+nextLocation a = (Scenic, 0)
