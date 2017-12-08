@@ -61,12 +61,12 @@ updateUnit u (u, e, i) = (unitHelper u, getEnviro u e i, getInv u e i)
 
 -- updates the current inventory to the new inventory
 -- used in updateInv function			
-inventoryHelper :: Units -> Inv 
-inventoryHelper (u:us) = --need getEnvironment from unit
+--inventoryHelper :: Units -> Inv 
+--inventoryHelper (u:us) = --need getEnvironment from unit
 
 -- update inventory and return a new state
 updateInventory :: Inv -> State -> State
-updateInventory (e:es) (u, e, i) = (getUnits u e i, getEnviro u e i, inventoryHelper (e:es) ) 
+updateInventory (e:es) (u, e, i) = (getUnits u e i, getEnviro u e i, i ) 
 
 -- add a unit to the list of units we are storing
 addUnit :: Unit -> State -> State
